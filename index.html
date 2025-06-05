@@ -242,7 +242,7 @@ header p {
 }
 
 /* Секции контента */
-.services, .prices, .reviews, .contact, .files {
+.prices, .reviews, .contact, .files {
     max-width: 900px;
     margin: 40px auto;
     background: var(--section-bg);
@@ -257,12 +257,12 @@ header p {
     border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-.services:hover, .prices:hover, .reviews:hover, .contact:hover, .files:hover {
+.prices:hover, .reviews:hover, .contact:hover, .files:hover {
     transform: translateY(-5px);
     box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
 }
 
-.services h2, .prices h2, .reviews h2, .contact h2, .files h2 {
+.prices h2, .reviews h2, .contact h2, .files h2 {
     color: var(--primary);
     font-size: 2.2rem;
     font-weight: 700;
@@ -271,7 +271,7 @@ header p {
     position: relative;
 }
 
-.services h2::after, .prices h2::after, .reviews h2::after, .contact h2::after, .files h2::after {
+.prices h2::after, .reviews h2::after, .contact h2::after, .files h2::after {
     content: '';
     position: absolute;
     bottom: -10px;
@@ -283,14 +283,14 @@ header p {
     border-radius: 2px;
 }
 
-/* Услуги */
-.services ul, .prices ul {
+/* Цены */
+.prices ul {
     list-style: none;
     display: grid;
     gap: 20px;
 }
 
-.services li, .prices li {
+.prices li {
     background: var(--card-hover);
     border-radius: 16px;
     padding: 24px;
@@ -299,40 +299,15 @@ header p {
     border: 1px solid rgba(102, 126, 234, 0.1);
     position: relative;
     overflow: hidden;
-}
-
-.services li::before {
-    content: '';
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 4px;
-    height: 100%;
-    background: linear-gradient(180deg, var(--primary), var(--primary-light));
-}
-
-.services li:hover, .prices li:hover {
-    transform: translateX(8px);
-    background: var(--card-hover);
-    box-shadow: 0 8px 25px rgba(102, 126, 234, 0.15);
-}
-
-.services li::after {
-    content: '✓';
-    position: absolute;
-    right: 24px;
-    top: 50%;
-    transform: translateY(-50%);
-    color: var(--primary);
-    font-size: 1.5rem;
-    font-weight: bold;
-}
-
-/* Цены */
-.prices li {
     display: flex;
     justify-content: space-between;
     align-items: center;
+}
+
+.prices li:hover {
+    transform: translateX(8px);
+    background: var(--card-hover);
+    box-shadow: 0 8px 25px rgba(102, 126, 234, 0.15);
 }
 
 .prices li span {
@@ -487,7 +462,7 @@ section, header {
 
 /* Адаптивность */
 @media (max-width: 1024px) {
-    header, .services, .prices, .reviews, .contact, .files {
+    header, .prices, .reviews, .contact, .files {
         max-width: 95vw;
         margin-left: 2.5vw;
         margin-right: 2.5vw;
@@ -519,12 +494,12 @@ section, header {
         font-size: 1.1rem;
     }
     
-    .services, .prices, .reviews, .contact, .files {
+    .prices, .reviews, .contact, .files {
         padding: 24px;
         margin: 24px auto;
     }
     
-    .services h2, .prices h2, .reviews h2, .contact h2, .files h2 {
+    .prices h2, .reviews h2, .contact h2, .files h2 {
         font-size: 1.8rem;
     }
     
@@ -556,7 +531,7 @@ section, header {
         font-size: 2rem;
     }
     
-    .services, .prices, .reviews, .contact, .files {
+    .prices, .reviews, .contact, .files {
         padding: 20px 16px;
     }
     
@@ -580,7 +555,6 @@ section, header {
         <nav class="main-nav">
             <ul>
                 <li><a href="#home" id="nav-home">Główna</a></li>
-                <li><a href="#services" id="nav-services">Usługi</a></li>
                 <li><a href="#prices" id="nav-prices">Cennik</a></li>
                 <li><a href="#reviews" id="nav-reviews">Opinie</a></li>
                 <li><a href="#contact" id="nav-contact">Kontakt</a></li>
@@ -590,16 +564,6 @@ section, header {
             <h1 id="main-title">KompSerwis24</h1>
             <p id="subtitle">Szybka i skuteczna naprawa Twojego komputera</p>
         </header>
-        <section class="services" id="services">
-            <h2 id="services-title">Nasze usługi</h2>
-            <ul id="services-list">
-                <li>Diagnoza i naprawa sprzętu</li>
-                <li>Usuwanie wirusów i złośliwego oprogramowania</li>
-                <li>Instalacja systemu operacyjnego</li>
-                <li>Modernizacja komputera</li>
-                <li>Odzyskiwanie danych</li>
-            </ul>
-        </section>
         <section class="prices" id="prices">
             <h2 id="prices-title">Cennik</h2>
             <ul id="prices-list">
@@ -656,7 +620,7 @@ section, header {
             <div id="request-success" style="display:none; color:var(--primary); margin-top:16px; font-weight:600;"></div>
         </section>
         <section class="files" id="files">
-            <h2 id="files-title">Pliki / Файлы</h2>
+            <h2 id="files-title">Pliki / Файلы</h2>
             <ul style="text-align:left; max-width:600px; margin:0 auto;">
                 <li><a href="index.html" download>index.html</a></li>
             </ul>
@@ -671,25 +635,6 @@ const translations = {
     pl: {
         mainTitle: "KompSerwis24",
         subtitle: "Szybka i skuteczna naprawa Twojego komputera",
-        servicesTitle: "Nasze usługi",
-        servicesList: [
-            "Diagnoza (wstępna)",
-            "Instalacja Windows z formatowaniem",
-            "Instalacja Windows z zachowaniem danych",
-            "Wymiana dysku + instalacja systemu",
-            "Czyszczenie z kurzu + wymiana pasty",
-            "Wymiana/instalacja SSD/HDD/NVMe",
-            "Składanie PC z podzespołów",
-            "Wymiana/instalacja karty graficznej",
-            "Wymiana/instalacja RAM",
-            "Wymiana płyty głównej",
-            "Wymiana procesora + pasta",
-            "Wymiana zasilacza",
-            "Wymiana wentylatora",
-            "Aktualizacja BIOS",
-            "Instalacja sterowników",
-            "Inne usługi"
-        ],
         pricesTitle: "Cennik",
         pricesList: [
             "Diagnoza (wstępna): <span>0 zł</span>",
@@ -717,7 +662,6 @@ const translations = {
         ],
         nav: {
             home: "Główna",
-            services: "Usługi",
             prices: "Cennik",
             reviews: "Opinie"
         },
@@ -730,14 +674,6 @@ const translations = {
     ru: {
         mainTitle: "KompSerwis24",
         subtitle: "Быстрый и эффективный ремонт вашего ПК",
-        servicesTitle: "Наши услуги",
-        servicesList: [
-            "Диагностика и ремонт оборудования",
-            "Удаление вирусов и вредоносных программ",
-            "Установка операционной системы",
-            "Модернизация компьютера",
-            "Восстановление данных"
-        ],
         pricesTitle: "Цены",
         pricesList: [
             "Диагностика (вступительная): <span>0 zł</span>",
@@ -765,7 +701,6 @@ const translations = {
         ],
         nav: {
             home: "Главная",
-            services: "Услуги",
             prices: "Цены",
             reviews: "Отзывы"
         },
