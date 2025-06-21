@@ -397,6 +397,95 @@ header p {
     color: rgba(255, 255, 255, 0.9);
 }
 
+/* Стили для форм */
+.contact-form {
+    margin-top: 32px;
+    text-align: center;
+}
+
+.form-group {
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.form-row {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.contact-form input,
+.contact-form textarea {
+    padding: 12px 16px;
+    border-radius: 12px;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    background: rgba(255, 255, 255, 0.1);
+    color: #fff;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+}
+
+.contact-form input::placeholder,
+.contact-form textarea::placeholder {
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.contact-form input:focus,
+.contact-form textarea:focus {
+    outline: none;
+    border-color: rgba(255, 255, 255, 0.8);
+    background: rgba(255, 255, 255, 0.2);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+}
+
+.contact-form textarea {
+    width: 100%;
+    max-width: 500px;
+    min-height: 120px;
+    resize: vertical;
+}
+
+.submit-btn {
+    padding: 12px 32px;
+    border-radius: 25px;
+    background: rgba(255, 255, 255, 0.2);
+    color: #fff;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    font-weight: 600;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+}
+
+.submit-btn:hover {
+    background: rgba(255, 255, 255, 0.3);
+    border-color: rgba(255, 255, 255, 0.8);
+    transform: translateY(-3px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+.success-message {
+    display: none;
+    color: #fff;
+    margin-top: 20px;
+    font-weight: 600;
+    padding: 15px;
+    background: rgba(76, 175, 80, 0.3);
+    border-radius: 12px;
+    border: 2px solid rgba(76, 175, 80, 0.5);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+}
+
 /* Переключатель языка и темы */
 .lang-switcher {
     position: fixed;
@@ -529,6 +618,16 @@ section, header {
         font-size: 1.8rem;
     }
     
+    .form-row {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .contact-form input {
+        width: 100%;
+        max-width: 300px;
+    }
+    
     .lang-switcher {
         bottom: 16px;
         right: 16px;
@@ -637,19 +736,29 @@ section, header {
             <p id="contact-desc">Zadzwoń lub napisz do nas, aby umówić się na wizytę!</p>
             <p><strong>Telefon:</strong> <span id="phone">+48 790 259 392</span></p>
             <p><strong>Email:</strong> <span id="email">kompserwis24poznan@gmail.com</span></p>
-            <form id="request-form" style="margin-top:32px; text-align:center;">
-                <input type="text" id="req-name" placeholder="Imię / Имя" maxlength="32" required style="padding:8px; border-radius:8px; border:1px solid #ccc; margin-right:8px; width:160px;">
-                <input type="email" id="req-email" placeholder="Email" maxlength="64" required style="padding:8px; border-radius:8px; border:1px solid #ccc; margin-right:8px; width:200px;">
-                <input type="text" id="req-message" placeholder="Twoja wiadomość / Ваше сообщение" maxlength="200" required style="padding:8px; border-radius:8px; border:1px solid #ccc; width:260px;">
-                <button type="submit" style="padding:8px 18px; border-radius:8px; background:var(--primary); color:#fff; border:none; font-weight:600; margin-left:8px; cursor:pointer;">Wyślij / Отправить</button>
+            
+            <form action="https://api.web3forms.com/submit" method="POST" class="contact-form" id="request-form">
+                <input type="hidden" name="access_key" value="c89f4454-7931-4a8b-a65e-91aaa1a3bc2a">
+                <input type="hidden" name="subject" value="Nowa wiadomość z KompSerwis24">
+                <input type="checkbox" name="botcheck" style="display: none;">
+                
+                <div class="form-group">
+                    <div class="form-row">
+                        <input type="text" name="name" id="req-name" placeholder="Imię / Имя" maxlength="50" required>
+                        <input type="email" name="email" id="req-email" placeholder="Email" maxlength="100" required>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <textarea name="message" id="req-message" placeholder="Twoja wiadomość / Ваше сообщение" maxlength="500" required></textarea>
+                </div>
+                
+                <button type="submit" class="submit-btn" id="submit-btn">
+                    <span id="submit-text">Wyślij / Отправить</span>
+                </button>
             </form>
-            <div id="request-success" style="display:none; color:var(--primary); margin-top:16px; font-weight:600;"></div>
-        </section>
-        <section class="files" id="files">
-            <h2 id="files-title">Pliki / Файлы</h2>
-            <ul style="text-align:left; max-width:600px; margin:0 auto;">
-                <li><a href="index.html" download>index.html</a></li>
-            </ul>
+            
+            <div id="request-success" class="success-message"></div>
         </section>
     </div>
     <footer>
@@ -689,13 +798,22 @@ const translations = {
         nav: {
             home: "Główna",
             prices: "Cennik",
-            reviews: "Opinie"
+            reviews: "Opinie",
+            contact: "Kontakt"
         },
         contactTitle: "Kontakt",
         contactDesc: "Zadzwoń lub napisz do nas, aby umówić się na wizytę!",
         phone: "+48 790 259 392",
         email: "kompserwis24poznan@gmail.com",
-        footerText: "© 2025 KompSerwis24. Wszystkie prawa zastrzeżone."
+        footerText: "© 2025 KompSerwis24. Wszystkie prawa zastrzeżone.",
+        formPlaceholders: {
+            name: "Imię",
+            email: "Email", 
+            message: "Twoja wiadomość",
+            submit: "Wyślij",
+            sending: "Wysyłanie...",
+            success: "Dziękujemy za wiadomość! Odpowiemy wkrótce."
+        }
     },
     ru: {
         mainTitle: "KompSerwis24",
@@ -728,13 +846,22 @@ const translations = {
         nav: {
             home: "Главная",
             prices: "Услуги",
-            reviews: "Отзывы"
+            reviews: "Отзывы",
+            contact: "Контакты"
         },
         contactTitle: "Контакты",
         contactDesc: "Позвоните или напишите нам, чтобы записаться на визит!",
         phone: "+48 790 259 392",
         email: "kompserwis24poznan@gmail.com",
-        footerText: "© 2025 KompSerwis24. Все права защищены."
+        footerText: "© 2025 KompSerwis24. Все права защищены.",
+        formPlaceholders: {
+            name: "Имя",
+            email: "Email",
+            message: "Ваше сообщение",
+            submit: "Отправить",
+            sending: "Отправка...",
+            success: "Спасибо за сообщение! Мы ответим в ближайшее время."
+        }
     }
 };
 
@@ -766,6 +893,7 @@ function setLanguage(lang) {
     document.getElementById('nav-home').textContent = t.nav.home;
     document.getElementById('nav-prices').textContent = t.nav.prices;
     document.getElementById('nav-reviews').textContent = t.nav.reviews;
+    document.getElementById('nav-contact').textContent = t.nav.contact;
     document.documentElement.lang = lang;
 
     // Перевод формы отзывов
@@ -779,18 +907,11 @@ function setLanguage(lang) {
         document.querySelector('#review-form button[type="submit"]').textContent = 'Добавить';
     }
 
-    // Перевод формы заявки
-    if (lang === 'pl') {
-        document.getElementById('req-name').placeholder = 'Imię';
-        document.getElementById('req-email').placeholder = 'Email';
-        document.getElementById('req-message').placeholder = 'Twoja wiadomość';
-        document.querySelector('#request-form button[type="submit"]').textContent = 'Wyślij';
-    } else if (lang === 'ru') {
-        document.getElementById('req-name').placeholder = 'Имя';
-        document.getElementById('req-email').placeholder = 'Email';
-        document.getElementById('req-message').placeholder = 'Ваше сообщение';
-        document.querySelector('#request-form button[type="submit"]').textContent = 'Отправить';
-    }
+    // Перевод формы контакта
+    document.getElementById('req-name').placeholder = t.formPlaceholders.name;
+    document.getElementById('req-email').placeholder = t.formPlaceholders.email;
+    document.getElementById('req-message').placeholder = t.formPlaceholders.message;
+    document.getElementById('submit-text').textContent = t.formPlaceholders.submit;
 }
 
 // Добавим функцию для показа только одной секции ("страницы")
@@ -840,8 +961,7 @@ document.addEventListener('DOMContentLoaded', function() {
         setTheme(current === 'light' ? 'dark' : 'light');
     }
 
-        themeToggle.addEventListener('click', toggleTheme);
-    });
+    themeToggle.addEventListener('click', toggleTheme);
 
     // Добавить отзыв
     const reviewForm = document.getElementById('review-form');
@@ -888,25 +1008,64 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // Обработка формы заявки
+    // Обработка формы заявки с Web3Forms
     const requestForm = document.getElementById('request-form');
     if (requestForm) {
-        requestForm.addEventListener('submit', function(e) {
+        requestForm.addEventListener('submit', async function(e) {
             e.preventDefault();
-            const name = document.getElementById('req-name').value.trim();
-            const email = document.getElementById('req-email').value.trim();
-            const message = document.getElementById('req-message').value.trim();
-            if (name && email && message) {
-                // Здесь можно реализовать отправку на сервер или на почту
-                document.getElementById('request-success').textContent =
-                    document.documentElement.lang === 'pl'
-                        ? 'Dziękujemy za zgłoszenie! Skontaktujemy się z Tobą.'
-                        : 'Спасибо за заявку! Мы свяжемся с вами.';
-                document.getElementById('request-success').style.display = 'block';
-                requestForm.reset();
+            
+            const submitBtn = document.getElementById('submit-btn');
+            const submitText = document.getElementById('submit-text');
+            const successMessage = document.getElementById('request-success');
+            const currentLang = document.documentElement.lang || 'pl';
+            const t = translations[currentLang];
+            
+            // Показать состояние загрузки
+            submitText.textContent = t.formPlaceholders.sending;
+            submitBtn.disabled = true;
+            
+            try {
+                const formData = new FormData(requestForm);
+                const response = await fetch('https://api.web3forms.com/submit', {
+                    method: 'POST',
+                    body: formData
+                });
+                
+                if (response.ok) {
+                    // Успешная отправка
+                    successMessage.textContent = t.formPlaceholders.success;
+                    successMessage.style.display = 'block';
+                    requestForm.reset();
+                    
+                    // Скрыть сообщение через 5 секунд
+                    setTimeout(() => {
+                        successMessage.style.display = 'none';
+                    }, 5000);
+                } else {
+                    throw new Error('Network response was not ok');
+                }
+            } catch (error) {
+                // Ошибка отправки
+                successMessage.textContent = currentLang === 'pl' 
+                    ? 'Wystąpił błąd. Spróbuj ponownie lub zadzwoń.'
+                    : 'Произошла ошибка. Попробуйте снова или позвоните.';
+                successMessage.style.display = 'block';
+                successMessage.style.background = 'rgba(244, 67, 54, 0.3)';
+                successMessage.style.borderColor = 'rgba(244, 67, 54, 0.5)';
+                
+                setTimeout(() => {
+                    successMessage.style.display = 'none';
+                    successMessage.style.background = 'rgba(76, 175, 80, 0.3)';
+                    successMessage.style.borderColor = 'rgba(76, 175, 80, 0.5)';
+                }, 5000);
+            } finally {
+                // Восстановить кнопку
+                submitText.textContent = t.formPlaceholders.submit;
+                submitBtn.disabled = false;
             }
         });
     }
+});
     </script>
 </body>
 </html>
