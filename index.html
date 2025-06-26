@@ -242,7 +242,7 @@ header p {
 }
 
 /* Секции контента */
-.prices, .reviews, .contact, .files {
+.about, .prices, .reviews, .contact, .files {
     max-width: 900px;
     margin: 40px auto;
     background: var(--section-bg);
@@ -257,12 +257,12 @@ header p {
     border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-.prices:hover, .reviews:hover, .contact:hover, .files:hover {
+.about:hover, .prices:hover, .reviews:hover, .contact:hover, .files:hover {
     transform: translateY(-5px);
     box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
 }
 
-.prices h2, .reviews h2, .contact h2, .files h2 {
+.about h2, .prices h2, .reviews h2, .contact h2, .files h2 {
     color: var(--primary);
     font-size: 2.2rem;
     font-weight: 700;
@@ -271,7 +271,7 @@ header p {
     position: relative;
 }
 
-.prices h2::after, .reviews h2::after, .contact h2::after, .files h2::after {
+.about h2::after, .prices h2::after, .reviews h2::after, .contact h2::after, .files h2::after {
     content: '';
     position: absolute;
     bottom: -10px;
@@ -281,6 +281,58 @@ header p {
     height: 4px;
     background: linear-gradient(90deg, var(--primary), var(--primary-light));
     border-radius: 2px;
+}
+
+/* Стили для секции "О нас" */
+.about-content {
+    line-height: 1.7;
+}
+
+.about-text p {
+    font-size: 1.1rem;
+    margin-bottom: 24px;
+    color: var(--text);
+}
+
+.about-highlights {
+    display: grid;
+    gap: 24px;
+    margin: 32px 0;
+}
+
+.highlight-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    background: var(--card-hover);
+    padding: 24px;
+    border-radius: 16px;
+    border: 1px solid rgba(102, 126, 234, 0.1);
+    transition: all 0.3s ease;
+}
+
+.highlight-item:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(102, 126, 234, 0.15);
+}
+
+.highlight-icon {
+    font-size: 2rem;
+    min-width: 50px;
+    text-align: center;
+}
+
+.highlight-item h3 {
+    color: var(--primary);
+    font-size: 1.3rem;
+    font-weight: 600;
+    margin-bottom: 8px;
+}
+
+.highlight-item p {
+    color: var(--text-light);
+    font-size: 1rem;
+    margin: 0;
 }
 
 /* Цены */
@@ -577,7 +629,7 @@ section, header {
 
 /* Адаптивность */
 @media (max-width: 1024px) {
-    header, .prices, .reviews, .contact, .files {
+    header, .about, .prices, .reviews, .contact, .files {
         max-width: 95vw;
         margin-left: 2.5vw;
         margin-right: 2.5vw;
@@ -609,12 +661,12 @@ section, header {
         font-size: 1.1rem;
     }
     
-    .prices, .reviews, .contact, .files {
+    .about, .prices, .reviews, .contact, .files {
         padding: 24px;
         margin: 24px auto;
     }
     
-    .prices h2, .reviews h2, .contact h2, .files h2 {
+    .about h2, .prices h2, .reviews h2, .contact h2, .files h2 {
         font-size: 1.8rem;
     }
     
@@ -645,6 +697,19 @@ section, header {
         padding: 6px 8px;
         font-size: 1rem;
     }
+    
+    .highlight-item {
+        padding: 20px;
+    }
+    
+    .highlight-icon {
+        font-size: 1.5rem;
+        min-width: 40px;
+    }
+    
+    .highlight-item h3 {
+        font-size: 1.2rem;
+    }
 }
 
 @media (max-width: 480px) {
@@ -656,7 +721,7 @@ section, header {
         font-size: 2rem;
     }
     
-    .prices, .reviews, .contact, .files {
+    .about, .prices, .reviews, .contact, .files {
         padding: 20px 16px;
     }
     
@@ -664,6 +729,16 @@ section, header {
         bottom: 12px;
         right: 12px;
         padding: 6px;
+    }
+    
+    .highlight-item {
+        flex-direction: column;
+        text-align: center;
+        gap: 12px;
+    }
+    
+    .highlight-icon {
+        min-width: auto;
     }
 }
     </style>
@@ -677,18 +752,59 @@ section, header {
                 <span id="theme-icon">🌙</span>
             </button>
         </div>
+        
         <nav class="main-nav">
             <ul>
                 <li><a href="#home" id="nav-home">Główna</a></li>
+                <li><a href="#about" id="nav-about">O nas</a></li>
                 <li><a href="#prices" id="nav-prices">Cennik</a></li>
                 <li><a href="#reviews" id="nav-reviews">Opinie</a></li>
                 <li><a href="#contact" id="nav-contact">Kontakt</a></li>
             </ul>
         </nav>
+        
         <header id="home">
             <h1 id="main-title">KompSerwis24</h1>
             <p id="subtitle">Szybka i skuteczna naprawa Twojego komputera</p>
         </header>
+        
+        <section class="about" id="about">
+            <h2 id="about-title">O nas</h2>
+            <div class="about-content">
+                <div class="about-text">
+                    <p id="about-intro">Cześć! Nazywam się Michał i jestem studentem kierunku technicznego, specjalizującym się w technologiach komputerowych. Moja pasja do IT zaczęła się jeszcze w szkole, a teraz przekształcam swoją wiedzę w wysokiej jakości usługi naprawy i serwisu komputerów.</p>
+                    
+                    <div class="about-highlights">
+                        <div class="highlight-item">
+                            <span class="highlight-icon">🎓</span>
+                            <div>
+                                <h3 id="student-title">Student kierunku IT</h3>
+                                <p id="student-desc">Studiuję nowoczesne technologie i stale doskonalę swoje umiejętności w zakresie sprzętu komputerowego i oprogramowania</p>
+                            </div>
+                        </div>
+                        
+                        <div class="highlight-item">
+                            <span class="highlight-icon">💰</span>
+                            <div>
+                                <h3 id="price-title">Przystępne ceny</h3>
+                                <p id="price-desc">Jako student oferuję ceny znacznie niższe od rynkowych, nie rezygnując przy tym z jakości pracy. Każdy zasługuje na wysokiej jakości serwis!</p>
+                            </div>
+                        </div>
+                        
+                        <div class="highlight-item">
+                            <span class="highlight-icon">⚡</span>
+                            <div>
+                                <h3 id="speed-title">Szybko i jakościowo</h3>
+                                <p id="speed-desc">Dzięki entuzjazmowi i nowoczesnej wiedzy rozwiązuję problemy szybko i skutecznie. Twój komputer będzie działał jak nowy!</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <p id="about-conclusion">Zaufaj swojemu komputerowi młodemu specjaliście, który podchodzi do każdego zamówienia ze szczególną uwagą. Rozumiem, jak ważny jest dla Ciebie Twój PC i robię wszystko, aby przywrócić go do życia w najkrótszym możliwym czasie!</p>
+                </div>
+            </div>
+        </section>
+        
         <section class="prices" id="prices">
             <h2 id="prices-title">Cennik</h2>
             <ul id="prices-list" class="prices-list">
@@ -710,6 +826,7 @@ section, header {
                 <li>Inne usługi: <span>umowne</span></li>
             </ul>
         </section>
+        
         <section class="reviews" id="reviews">
             <h2 id="reviews-title">Opinie klientów</h2>
             <ul id="reviews-list">
@@ -731,6 +848,7 @@ section, header {
                 <button type="submit" style="padding:8px 18px; border-radius:8px; background:var(--primary); color:#fff; border:none; font-weight:600; margin-left:8px; cursor:pointer;">Dodaj / Добавить</button>
             </form>
         </section>
+        
         <section class="contact" id="contact">
             <h2 id="contact-title">Kontakt</h2>
             <p id="contact-desc">Zadzwoń lub napisz do nas, aby umówić się na wizytę!</p>
@@ -761,6 +879,7 @@ section, header {
             <div id="request-success" class="success-message"></div>
         </section>
     </div>
+    
     <footer>
         <p id="footer-text">© 2025 KompSerwis24. Wszystkie prawa zastrzeżone.</p>
     </footer>
@@ -797,10 +916,20 @@ const translations = {
         ],
         nav: {
             home: "Główna",
+            about: "O nas",
             prices: "Cennik",
             reviews: "Opinie",
             contact: "Kontakt"
         },
+        aboutTitle: "O nas",
+        aboutIntro: "Cześć! Nazywam się Michał i jestem studentem kierunku technicznego, specjalizującym się w technologiach komputerowych. Moja pasja do IT zaczęła się jeszcze w szkole, a teraz przekształcam swoją wiedzę w wysokiej jakości usługi naprawy i serwisu komputerów.",
+        studentTitle: "Student kierunku IT",
+        studentDesc: "Studiuję nowoczesne technologie i stale doskonalę swoje umiejętności w zakresie sprzętu komputerowego i oprogramowania",
+        priceTitle: "Przystępne ceny",
+        priceDesc: "Jako student oferuję ceny znacznie niższe od rynkowych, nie rezygnując przy tym z jakości pracy. Każdy zasługuje na wysokiej jakości serwis!",
+        speedTitle: "Szybko i jakościowo",
+        speedDesc: "Dzięki entuzjazmowi i nowoczesnej wiedzy rozwiązuję problemy szybko i skutecznie. Twój komputer będzie działał jak nowy!",
+        aboutConclusion: "Zaufaj swojemu komputerowi młodemu specjaliście, który podchodzi do każdego zamówienia ze szczególną uwagą. Rozumiem, jak ważny jest dla Ciebie Twój PC i robię wszystko, aby przywrócić go do życia w najkrótszym możliwym czasie!",
         contactTitle: "Kontakt",
         contactDesc: "Zadzwoń lub napisz do nas, aby umówić się na wizytę!",
         phone: "+48 790 259 392",
@@ -845,10 +974,20 @@ const translations = {
         ],
         nav: {
             home: "Главная",
+            about: "О нас",
             prices: "Услуги",
             reviews: "Отзывы",
             contact: "Контакты"
         },
+        aboutTitle: "О нас",
+        aboutIntro: "Привет! Меня зовут Михаил, и я студент технического вуза, специализирующийся на компьютерных технологиях. Моя страсть к IT началась еще в школе, и сейчас я превращаю свои знания в качественные услуги по ремонту и обслуживанию компьютеров.",
+        studentTitle: "Студент IT-направления",
+        studentDesc: "Изучаю современные технологии и постоянно совершенствую свои навыки в области компьютерного железа и программного обеспечения",
+        priceTitle: "Доступные цены",
+        priceDesc: "Как студент, я предлагаю цены значительно ниже рыночных, не жертвуя при этом качеством работы. Каждый заслуживает качественного сервиса!",
+        speedTitle: "Быстро и качественно",
+        speedDesc: "Благодаря энтузиазму и современным знаниям, я решаю проблемы быстро и эффективно. Ваш компьютер будет работать как новый!",
+        aboutConclusion: "Доверьте свой компьютер молодому специалисту, который относится к каждому заказу с особым вниманием. Я понимаю, как важен для вас ваш ПК, и делаю все возможное, чтобы вернуть его к жизни в кратчайшие сроки!",
         contactTitle: "Контакты",
         contactDesc: "Позвоните или напишите нам, чтобы записаться на визит!",
         phone: "+48 790 259 392",
@@ -870,6 +1009,7 @@ function setLanguage(lang) {
     document.getElementById('main-title').textContent = t.mainTitle;
     document.getElementById('subtitle').textContent = t.subtitle;
     document.getElementById('prices-title').textContent = t.pricesTitle;
+    
     const pricesList = document.getElementById('prices-list');
     pricesList.innerHTML = '';
     t.pricesList.forEach(item => {
@@ -877,6 +1017,7 @@ function setLanguage(lang) {
         li.innerHTML = item;
         pricesList.appendChild(li);
     });
+    
     document.getElementById('reviews-title').textContent = t.reviewsTitle;
     const reviewsList = document.getElementById('reviews-list');
     reviewsList.innerHTML = '';
@@ -885,15 +1026,31 @@ function setLanguage(lang) {
         li.innerHTML = item;
         reviewsList.appendChild(li);
     });
+    
     document.getElementById('contact-title').textContent = t.contactTitle;
     document.getElementById('contact-desc').textContent = t.contactDesc;
     document.getElementById('phone').textContent = t.phone;
     document.getElementById('email').textContent = t.email;
     document.getElementById('footer-text').textContent = t.footerText;
+    
+    // Навигация
     document.getElementById('nav-home').textContent = t.nav.home;
+    document.getElementById('nav-about').textContent = t.nav.about;
     document.getElementById('nav-prices').textContent = t.nav.prices;
     document.getElementById('nav-reviews').textContent = t.nav.reviews;
     document.getElementById('nav-contact').textContent = t.nav.contact;
+    
+    // Секция "О нас"
+    document.getElementById('about-title').textContent = t.aboutTitle;
+    document.getElementById('about-intro').textContent = t.aboutIntro;
+    document.getElementById('student-title').textContent = t.studentTitle;
+    document.getElementById('student-desc').textContent = t.studentDesc;
+    document.getElementById('price-title').textContent = t.priceTitle;
+    document.getElementById('price-desc').textContent = t.priceDesc;
+    document.getElementById('speed-title').textContent = t.speedTitle;
+    document.getElementById('speed-desc').textContent = t.speedDesc;
+    document.getElementById('about-conclusion').textContent = t.aboutConclusion;
+    
     document.documentElement.lang = lang;
 
     // Перевод формы отзывов
@@ -914,9 +1071,9 @@ function setLanguage(lang) {
     document.getElementById('submit-text').textContent = t.formPlaceholders.submit;
 }
 
-// Добавим функцию для показа только одной секции ("страницы")
+// Функция для показа только одной секции
 function showSection(sectionId) {
-    const sections = ['home', 'prices', 'reviews', 'contact', 'files'];
+    const sections = ['home', 'about', 'prices', 'reviews', 'contact', 'files'];
     sections.forEach(id => {
         const el = document.getElementById(id);
         if (el) {
@@ -925,29 +1082,31 @@ function showSection(sectionId) {
     });
 }
 
-// Навесим обработчики на навигацию
+// Инициализация при загрузке страницы
 document.addEventListener('DOMContentLoaded', function() {
-    ['nav-home', 'nav-prices', 'nav-reviews', 'nav-contact'].forEach((navId, idx) => {
+    // Навигация
+    ['nav-home', 'nav-about', 'nav-prices', 'nav-reviews', 'nav-contact'].forEach((navId, idx) => {
         const navElement = document.getElementById(navId);
         if (navElement) {
             navElement.addEventListener('click', function(e) {
                 e.preventDefault();
-                showSection(['home', 'prices', 'reviews', 'contact'][idx]);
+                showSection(['home', 'about', 'prices', 'reviews', 'contact'][idx]);
                 window.scrollTo({ top: 0, behavior: 'smooth' });
             });
         }
     });
 
+    // Переключение языка
     document.getElementById('pl-btn').addEventListener('click', () => setLanguage('pl'));
     document.getElementById('ru-btn').addEventListener('click', () => setLanguage('ru'));
 
     // Показываем только главную при загрузке
     showSection('home');
 
-    // Set default language
+    // Устанавливаем язык по умолчанию
     setLanguage('pl');
 
-    // Theme toggle logic
+    // Переключение темы
     const themeToggle = document.getElementById('theme-toggle');
     const themeIcon = document.getElementById('theme-icon');
 
@@ -963,18 +1122,20 @@ document.addEventListener('DOMContentLoaded', function() {
 
     themeToggle.addEventListener('click', toggleTheme);
 
-    // Добавить отзыв
+    // Форма отзывов
     const reviewForm = document.getElementById('review-form');
     if (reviewForm) {
-        // --- Звёзды ---
+        // Звёзды
         const stars = document.querySelectorAll('#review-stars .star');
         const ratingInput = document.getElementById('review-rating');
         let currentRating = 5;
+        
         function updateStars(rating) {
             stars.forEach((star, idx) => {
                 star.style.color = (idx < rating) ? '#ffd700' : '#ccc';
             });
         }
+        
         stars.forEach(star => {
             star.addEventListener('mouseenter', function() {
                 updateStars(Number(star.dataset.value));
@@ -988,13 +1149,15 @@ document.addEventListener('DOMContentLoaded', function() {
                 updateStars(currentRating);
             });
         });
+        
         updateStars(currentRating);
-        // --- Конец звёзд ---
+        
         reviewForm.addEventListener('submit', function(e) {
             e.preventDefault();
             const name = document.getElementById('review-name').value.trim();
             const text = document.getElementById('review-text').value.trim();
             const rating = document.getElementById('review-rating').value;
+            
             if (name && text) {
                 const li = document.createElement('li');
                 let starsHtml = '<span style="color:#ffd700; font-size:1.2em; margin-right:6px;">' + '★'.repeat(rating) + '<span style="color:#ccc;">' + '★'.repeat(5-rating) + '</span></span>';
