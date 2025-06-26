@@ -61,7 +61,7 @@ body {
     flex-direction: column;
 }
 
-/* Фоновое изображение для обеих тем с эффектом параллакса */
+/* Фоновое изображение */
 body::before {
     content: '';
     position: fixed;
@@ -106,7 +106,6 @@ body::after {
     66% { transform: translate(-20px, 20px) rotate(-1deg); }
 }
 
-/* Контейнер для основного содержимого */
 .main-content {
     flex: 1;
 }
@@ -242,7 +241,7 @@ header p {
 }
 
 /* Секции контента */
-.about, .prices, .reviews, .contact, .files {
+.prices, .reviews, .contact, .live-comments {
     max-width: 900px;
     margin: 40px auto;
     background: var(--section-bg);
@@ -257,12 +256,12 @@ header p {
     border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-.about:hover, .prices:hover, .reviews:hover, .contact:hover, .files:hover {
+.prices:hover, .reviews:hover, .contact:hover, .live-comments:hover {
     transform: translateY(-5px);
     box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
 }
 
-.about h2, .prices h2, .reviews h2, .contact h2, .files h2 {
+.prices h2, .reviews h2, .contact h2, .live-comments h2 {
     color: var(--primary);
     font-size: 2.2rem;
     font-weight: 700;
@@ -271,7 +270,7 @@ header p {
     position: relative;
 }
 
-.about h2::after, .prices h2::after, .reviews h2::after, .contact h2::after, .files h2::after {
+.prices h2::after, .reviews h2::after, .contact h2::after, .live-comments h2::after {
     content: '';
     position: absolute;
     bottom: -10px;
@@ -283,59 +282,185 @@ header p {
     border-radius: 2px;
 }
 
-/* Стили для секции "О нас" */
-.about-content {
-    line-height: 1.7;
-}
-
-.about-text p {
-    font-size: 1.1rem;
-    margin-bottom: 24px;
-    color: var(--text);
-}
-
-.about-highlights {
-    display: grid;
-    gap: 24px;
-    margin: 32px 0;
-}
-
-.highlight-item {
-    display: flex;
-    align-items: flex-start;
-    gap: 16px;
+/* Стили для живых комментариев */
+.comment-form {
     background: var(--card-hover);
-    padding: 24px;
     border-radius: 16px;
+    padding: 24px;
+    margin-bottom: 32px;
+    border: 1px solid rgba(102, 126, 234, 0.1);
+}
+
+.comment-form h3 {
+    color: var(--primary);
+    margin-bottom: 16px;
+    font-size: 1.3rem;
+}
+
+.form-group {
+    margin-bottom: 16px;
+}
+
+.form-row {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 16px;
+}
+
+.comment-form input,
+.comment-form textarea {
+    width: 100%;
+    padding: 12px 16px;
+    border: 2px solid rgba(102, 126, 234, 0.2);
+    border-radius: 12px;
+    background: var(--section-bg);
+    color: var(--text);
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    font-family: inherit;
+}
+
+.comment-form input:focus,
+.comment-form textarea:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+    transform: translateY(-2px);
+}
+
+.comment-form textarea {
+    min-height: 100px;
+    resize: vertical;
+}
+
+.comment-submit-btn {
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 12px;
+    font-weight: 600;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+}
+
+.comment-submit-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+}
+
+.comment-submit-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+}
+
+/* Контейнер комментариев */
+.comments-container {
+    max-height: 500px;
+    overflow-y: auto;
+    padding-right: 8px;
+}
+
+.comments-container::-webkit-scrollbar {
+    width: 6px;
+}
+
+.comments-container::-webkit-scrollbar-track {
+    background: var(--card-hover);
+    border-radius: 3px;
+}
+
+.comments-container::-webkit-scrollbar-thumb {
+    background: var(--primary);
+    border-radius: 3px;
+}
+
+/* Отдельный комментарий */
+.comment-item {
+    background: var(--card-hover);
+    border-radius: 16px;
+    padding: 20px;
+    margin-bottom: 16px;
     border: 1px solid rgba(102, 126, 234, 0.1);
     transition: all 0.3s ease;
+    animation: slideInComment 0.5s ease-out;
 }
 
-.highlight-item:hover {
-    transform: translateY(-3px);
+@keyframes slideInComment {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.comment-item:hover {
+    transform: translateY(-2px);
     box-shadow: 0 8px 25px rgba(102, 126, 234, 0.15);
 }
 
-.highlight-icon {
-    font-size: 2rem;
-    min-width: 50px;
-    text-align: center;
+.comment-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
 }
 
-.highlight-item h3 {
-    color: var(--primary);
-    font-size: 1.3rem;
+.comment-author {
     font-weight: 600;
-    margin-bottom: 8px;
+    color: var(--primary);
+    font-size: 1.1rem;
 }
 
-.highlight-item p {
+.comment-time {
+    font-size: 0.9rem;
     color: var(--text-light);
-    font-size: 1rem;
-    margin: 0;
 }
 
-/* Цены */
+.comment-content {
+    color: var(--text);
+    line-height: 1.6;
+    font-size: 1rem;
+}
+
+.no-comments {
+    text-align: center;
+    color: var(--text-light);
+    font-style: italic;
+    padding: 40px 20px;
+    background: var(--card-hover);
+    border-radius: 16px;
+    border: 2px dashed rgba(102, 126, 234, 0.2);
+}
+
+.loading-spinner {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.spinner {
+    width: 40px;
+    height: 40px;
+    border: 4px solid var(--card-hover);
+    border-top: 4px solid var(--primary);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Остальные стили из вашего файла */
 .prices-list {
     list-style: none;
     display: grid;
@@ -449,13 +574,12 @@ header p {
     color: rgba(255, 255, 255, 0.9);
 }
 
-/* Стили для форм */
 .contact-form {
     margin-top: 32px;
     text-align: center;
 }
 
-.form-group {
+.contact-form .form-group {
     margin-bottom: 20px;
     display: flex;
     flex-direction: column;
@@ -463,7 +587,7 @@ header p {
     gap: 10px;
 }
 
-.form-row {
+.contact-form .form-row {
     display: flex;
     gap: 10px;
     justify-content: center;
@@ -594,7 +718,7 @@ header p {
     box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
 }
 
-/* Футер - теперь прижат к низу */
+/* Футер */
 footer {
     text-align: center;
     padding: 32px 0;
@@ -629,7 +753,7 @@ section, header {
 
 /* Адаптивность */
 @media (max-width: 1024px) {
-    header, .about, .prices, .reviews, .contact, .files {
+    header, .prices, .reviews, .contact, .live-comments {
         max-width: 95vw;
         margin-left: 2.5vw;
         margin-right: 2.5vw;
@@ -661,12 +785,12 @@ section, header {
         font-size: 1.1rem;
     }
     
-    .about, .prices, .reviews, .contact, .files {
+    .prices, .reviews, .contact, .live-comments {
         padding: 24px;
         margin: 24px auto;
     }
     
-    .about h2, .prices h2, .reviews h2, .contact h2, .files h2 {
+    .prices h2, .reviews h2, .contact h2, .live-comments h2 {
         font-size: 1.8rem;
     }
     
@@ -697,19 +821,6 @@ section, header {
         padding: 6px 8px;
         font-size: 1rem;
     }
-    
-    .highlight-item {
-        padding: 20px;
-    }
-    
-    .highlight-icon {
-        font-size: 1.5rem;
-        min-width: 40px;
-    }
-    
-    .highlight-item h3 {
-        font-size: 1.2rem;
-    }
 }
 
 @media (max-width: 480px) {
@@ -721,7 +832,7 @@ section, header {
         font-size: 2rem;
     }
     
-    .about, .prices, .reviews, .contact, .files {
+    .prices, .reviews, .contact, .live-comments {
         padding: 20px 16px;
     }
     
@@ -731,14 +842,8 @@ section, header {
         padding: 6px;
     }
     
-    .highlight-item {
+    .comment-form .form-row {
         flex-direction: column;
-        text-align: center;
-        gap: 12px;
-    }
-    
-    .highlight-icon {
-        min-width: auto;
     }
 }
     </style>
@@ -756,9 +861,9 @@ section, header {
         <nav class="main-nav">
             <ul>
                 <li><a href="#home" id="nav-home">Główna</a></li>
-                <li><a href="#about" id="nav-about">O nas</a></li>
                 <li><a href="#prices" id="nav-prices">Cennik</a></li>
                 <li><a href="#reviews" id="nav-reviews">Opinie</a></li>
+                <li><a href="#live-comments" id="nav-comments">Komentarze</a></li>
                 <li><a href="#contact" id="nav-contact">Kontakt</a></li>
             </ul>
         </nav>
@@ -767,43 +872,6 @@ section, header {
             <h1 id="main-title">KompSerwis24</h1>
             <p id="subtitle">Szybka i skuteczna naprawa Twojego komputera</p>
         </header>
-        
-        <section class="about" id="about">
-            <h2 id="about-title">O nas</h2>
-            <div class="about-content">
-                <div class="about-text">
-                    <p id="about-intro">Cześć! Nazywam się Michał i jestem studentem kierunku technicznego, specjalizującym się w technologiach komputerowych. Moja pasja do IT zaczęła się jeszcze w szkole, a teraz przekształcam swoją wiedzę w wysokiej jakości usługi naprawy i serwisu komputerów.</p>
-                    
-                    <div class="about-highlights">
-                        <div class="highlight-item">
-                            <span class="highlight-icon">🎓</span>
-                            <div>
-                                <h3 id="student-title">Student kierunku IT</h3>
-                                <p id="student-desc">Studiuję nowoczesne technologie i stale doskonalę swoje umiejętności w zakresie sprzętu komputerowego i oprogramowania</p>
-                            </div>
-                        </div>
-                        
-                        <div class="highlight-item">
-                            <span class="highlight-icon">💰</span>
-                            <div>
-                                <h3 id="price-title">Przystępne ceny</h3>
-                                <p id="price-desc">Jako student oferuję ceny znacznie niższe od rynkowych, nie rezygnując przy tym z jakości pracy. Każdy zasługuje na wysokiej jakości serwis!</p>
-                            </div>
-                        </div>
-                        
-                        <div class="highlight-item">
-                            <span class="highlight-icon">⚡</span>
-                            <div>
-                                <h3 id="speed-title">Szybko i jakościowo</h3>
-                                <p id="speed-desc">Dzięki entuzjazmowi i nowoczesnej wiedzy rozwiązuję problemy szybko i skutecznie. Twój komputer będzie działał jak nowy!</p>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <p id="about-conclusion">Zaufaj swojemu komputerowi młodemu specjaliście, który podchodzi do każdego zamówienia ze szczególną uwagą. Rozumiem, jak ważny jest dla Ciebie Twój PC i robię wszystko, aby przywrócić go do życia w najkrótszym możliwym czasie!</p>
-                </div>
-            </div>
-        </section>
         
         <section class="prices" id="prices">
             <h2 id="prices-title">Cennik</h2>
@@ -848,6 +916,38 @@ section, header {
                 <button type="submit" style="padding:8px 18px; border-radius:8px; background:var(--primary); color:#fff; border:none; font-weight:600; margin-left:8px; cursor:pointer;">Dodaj / Добавить</button>
             </form>
         </section>
+
+        <!-- Новая секция живых комментариев -->
+        <section class="live-comments" id="live-comments">
+            <h2 id="live-comments-title">Komentarze na żywo</h2>
+            
+            <!-- Форма добавления комментария -->
+            <div class="comment-form">
+                <h3 id="comment-form-title">Dodaj komentarz</h3>
+                <form id="comment-form">
+                    <div class="form-row">
+                        <input type="text" id="comment-name" placeholder="Twoje imię" required maxlength="50">
+                        <input type="email" id="comment-email" placeholder="Email (opcjonalnie)" maxlength="100">
+                    </div>
+                    <div class="form-group">
+                        <textarea id="comment-text" placeholder="Twój komentarz..." required maxlength="500"></textarea>
+                    </div>
+                    <button type="submit" class="comment-submit-btn" id="comment-submit">
+                        <span id="comment-submit-text">Dodaj komentarz</span>
+                    </button>
+                </form>
+            </div>
+            
+            <!-- Контейнер для комментариев -->
+            <div class="comments-container" id="comments-container">
+                <div class="loading-spinner" id="comments-loading">
+                    <div class="spinner"></div>
+                </div>
+                <div class="no-comments" id="no-comments" style="display: none;">
+                    <p id="no-comments-text">Bądź pierwszy, który skomentuje!</p>
+                </div>
+            </div>
+        </section>
         
         <section class="contact" id="contact">
             <h2 id="contact-title">Kontakt</h2>
@@ -884,351 +984,478 @@ section, header {
         <p id="footer-text">© 2025 KompSerwis24. Wszystkie prawa zastrzeżone.</p>
     </footer>
 
-    <script>
-const translations = {
-    pl: {
-        mainTitle: "KompSerwis24",
-        subtitle: "Szybka i skuteczna naprawa Twojego komputera",
-        pricesTitle: "Cennik",
-        pricesList: [
-            "Diagnoza (wstępna): <span>0 zł</span>",
-            "Instalacja Windows z formatowaniem: <span>70 zł</span>",
-            "Instalacja Windows z zachowaniem danych: <span>100 zł</span>",
-            "Wymiana dysku + instalacja systemu: <span>100 zł</span>",
-            "Czyszczenie z kurzu + wymiana pasty: <span>85 zł</span>",
-            "Wymiana/instalacja SSD/HDD/NVMe: <span>40 zł</span>",
-            "Składanie PC z podzespołów: <span>od 120 zł do 200 zł</span>",
-            "Wymiana/instalacja karty graficznej: <span>80 zł</span>",
-            "Wymiana/instalacja RAM: <span>80 zł</span>",
-            "Wymiana płyty głównej: <span>80 zł</span>",
-            "Wymiana procesora + pasta: <span>80 zł</span>",
-            "Wymiana zasilacza: <span>80 zł</span>",
-            "Wymiana wentylatora: <span>60 zł</span>",
-            "Aktualizacja BIOS: <span>50 zł</span>",
-            "Instalacja sterowników: <span>50 zł</span>",
-            "Inne usługi: <span>umowne</span>"
-        ],
-        reviewsTitle: "Opinie klientów",
-        reviewsList: [
-            '"Szybko i profesjonalnie!" – Anna K.',
-            '"Mój komputer działa jak nowy." – Piotr W.',
-            '"Polecam każdemu!" – Marek Z.'
-        ],
-        nav: {
-            home: "Główna",
-            about: "O nas",
-            prices: "Cennik",
-            reviews: "Opinie",
-            contact: "Kontakt"
-        },
-        aboutTitle: "O nas",
-        aboutIntro: "Cześć! Nazywam się Yahor i jestem studentem kierunku technicznego, specjalizującym się w technologiach komputerowych. Moja pasja do IT zaczęła się jeszcze w szkole, a teraz przekształcam swoją wiedzę w wysokiej jakości usługi naprawy i serwisu komputerów.",
-        studentTitle: "Student kierunku IT",
-        studentDesc: "Studiuję nowoczesne technologie i stale doskonalę swoje umiejętności w zakresie sprzętu komputerowego i oprogramowania",
-        priceTitle: "Przystępne ceny",
-        priceDesc: "Jako student oferuję ceny znacznie niższe od rynkowych, nie rezygnując przy tym z jakości pracy. Każdy zasługuje na wysokiej jakości serwis!",
-        speedTitle: "Szybko i jakościowo",
-        speedDesc: "Dzięki entuzjazmowi i nowoczesnej wiedzy rozwiązuję problemy szybko i skutecznie. Twój komputer będzie działał jak nowy!",
-        aboutConclusion: "Zaufaj swojemu komputerowi młodemu specjaliście, który podchodzi do każdego zamówienia ze szczególną uwagą. Rozumiem, jak ważny jest dla Ciebie Twój PC i robię wszystko, aby przywrócić go do życia w najkrótszym możliwym czasie!",
-        contactTitle: "Kontakt",
-        contactDesc: "Zadzwoń lub napisz do nas, aby umówić się na wizytę!",
-        phone: "+48 790 259 392",
-        email: "kompserwis24poznan@gmail.com",
-        footerText: "© 2025 KompSerwis24. Wszystkie prawa zastrzeżone.",
-        formPlaceholders: {
-            name: "Imię",
-            email: "Email", 
-            message: "Twoja wiadomość",
-            submit: "Wyślij",
-            sending: "Wysyłanie...",
-            success: "Dziękujemy za wiadomość! Odpowiemy wkrótce."
-        }
-    },
-    ru: {
-        mainTitle: "KompSerwis24",
-        subtitle: "Быстрый и эффективный ремонт вашего ПК",
-        pricesTitle: "Цены",
-        pricesList: [
-            "Диагностика (вступительная): <span>0 zł</span>",
-            "Установка Windows с форматированием: <span>70 zł</span>",
-            "Установка Windows с сохранением данных: <span>100 zł</span>",
-            "Замена диска + скачивание системы: <span>100 zł</span>",
-            "Чистка от пыли + замена термопасты: <span>85 zł</span>",
-            "Замена/установка SSD/HDD/NVMe: <span>40 zł</span>",
-            "Сборка ПК из комплектующих клиента: <span>od 120 zł do 200 zł</span>",
-            "Замена/установка видеокарты в ПК: <span>80 zł</span>",
-            "Замена/установка RAM: <span>80 zł</span>",
-            "Замена материнской платы: <span>80 zł</span>",
-            "Замена процессора + термопасты: <span>80 zł</span>",
-            "Замена блока питания: <span>80 zł</span>",
-            "Замена вентилятора в ПК: <span>60 zł</span>",
-            "Обновление BIOS / прошивка: <span>50 zł</span>",
-            "Установка и настройка драйверов: <span>50 zł</span>",
-            "Прочие услуги: <span>договорные</span>"
-        ],
-        reviewsTitle: "Отзывы клиентов",
-        reviewsList: [
-            '"Быстро и профессионально!" – Анна К."',
-            '"Компьютер работает как новый." – Пётр В."',
-            '"Рекомендую всем!" – Марек З.'
-        ],
-        nav: {
-            home: "Главная",
-            about: "О нас",
-            prices: "Услуги",
-            reviews: "Отзывы",
-            contact: "Контакты"
-        },
-        aboutTitle: "О нас",
-        aboutIntro: "Привет! Меня зовут Егор, и я студент технического вуза, специализирующийся на компьютерных технологиях. Моя страсть к IT началась еще в школе, и сейчас я превращаю свои знания в качественные услуги по ремонту и обслуживанию компьютеров.",
-        studentTitle: "Студент IT-направления",
-        studentDesc: "Изучаю современные технологии и постоянно совершенствую свои навыки в области компьютерного железа и программного обеспечения",
-        priceTitle: "Доступные цены",
-        priceDesc: "Как студент, я предлагаю цены значительно ниже рыночных, не жертвуя при этом качеством работы. Каждый заслуживает качественного сервиса!",
-        speedTitle: "Быстро и качественно",
-        speedDesc: "Благодаря энтузиазму и современным знаниям, я решаю проблемы быстро и эффективно. Ваш компьютер будет работать как новый!",
-        aboutConclusion: "Доверьте свой компьютер молодому специалисту, который относится к каждому заказу с особым вниманием. Я понимаю, как важен для вас ваш ПК, и делаю все возможное, чтобы вернуть его к жизни в кратчайшие сроки!",
-        contactTitle: "Контакты",
-        contactDesc: "Позвоните или напишите нам, чтобы записаться на визит!",
-        phone: "+48 790 259 392",
-        email: "kompserwis24poznan@gmail.com",
-        footerText: "© 2025 KompSerwis24. Все права защищены.",
-        formPlaceholders: {
-            name: "Имя",
-            email: "Email",
-            message: "Ваше сообщение",
-            submit: "Отправить",
-            sending: "Отправка...",
-            success: "Спасибо за сообщение! Мы ответим в ближайшее время."
-        }
-    }
-};
+    <!-- Firebase SDK -->
+    <script type="module">
+        import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
+        import { getDatabase, ref, push, onValue, serverTimestamp, query, orderByChild, limitToLast } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js';
 
-function setLanguage(lang) {
-    const t = translations[lang];
-    document.getElementById('main-title').textContent = t.mainTitle;
-    document.getElementById('subtitle').textContent = t.subtitle;
-    document.getElementById('prices-title').textContent = t.pricesTitle;
-    
-    const pricesList = document.getElementById('prices-list');
-    pricesList.innerHTML = '';
-    t.pricesList.forEach(item => {
-        const li = document.createElement('li');
-        li.innerHTML = item;
-        pricesList.appendChild(li);
-    });
-    
-    document.getElementById('reviews-title').textContent = t.reviewsTitle;
-    const reviewsList = document.getElementById('reviews-list');
-    reviewsList.innerHTML = '';
-    t.reviewsList.forEach(item => {
-        const li = document.createElement('li');
-        li.innerHTML = item;
-        reviewsList.appendChild(li);
-    });
-    
-    document.getElementById('contact-title').textContent = t.contactTitle;
-    document.getElementById('contact-desc').textContent = t.contactDesc;
-    document.getElementById('phone').textContent = t.phone;
-    document.getElementById('email').textContent = t.email;
-    document.getElementById('footer-text').textContent = t.footerText;
-    
-    // Навигация
-    document.getElementById('nav-home').textContent = t.nav.home;
-    document.getElementById('nav-about').textContent = t.nav.about;
-    document.getElementById('nav-prices').textContent = t.nav.prices;
-    document.getElementById('nav-reviews').textContent = t.nav.reviews;
-    document.getElementById('nav-contact').textContent = t.nav.contact;
-    
-    // Секция "О нас"
-    document.getElementById('about-title').textContent = t.aboutTitle;
-    document.getElementById('about-intro').textContent = t.aboutIntro;
-    document.getElementById('student-title').textContent = t.studentTitle;
-    document.getElementById('student-desc').textContent = t.studentDesc;
-    document.getElementById('price-title').textContent = t.priceTitle;
-    document.getElementById('price-desc').textContent = t.priceDesc;
-    document.getElementById('speed-title').textContent = t.speedTitle;
-    document.getElementById('speed-desc').textContent = t.speedDesc;
-    document.getElementById('about-conclusion').textContent = t.aboutConclusion;
-    
-    document.documentElement.lang = lang;
+        // Конфигурация Firebase - ЗАМЕНИТЕ НА СВОЮ
+        const firebaseConfig = {
+            apiKey: "your-api-key",
+            authDomain: "your-project.firebaseapp.com",
+            databaseURL: "https://your-project-default-rtdb.firebaseio.com/",
+            projectId: "your-project",
+            storageBucket: "your-project.appspot.com",
+            messagingSenderId: "123456789",
+            appId: "your-app-id"
+        };
 
-    // Перевод формы отзывов
-    if (lang === 'pl') {
-        document.getElementById('review-name').placeholder = 'Imię';
-        document.getElementById('review-text').placeholder = 'Twój komentarz';
-        document.querySelector('#review-form button[type="submit"]').textContent = 'Dodaj';
-    } else if (lang === 'ru') {
-        document.getElementById('review-name').placeholder = 'Имя';
-        document.getElementById('review-text').placeholder = 'Ваш отзыв';
-        document.querySelector('#review-form button[type="submit"]').textContent = 'Добавить';
-    }
+        // Инициализация Firebase
+        const app = initializeApp(firebaseConfig);
+        const database = getDatabase(app);
 
-    // Перевод формы контакта
-    document.getElementById('req-name').placeholder = t.formPlaceholders.name;
-    document.getElementById('req-email').placeholder = t.formPlaceholders.email;
-    document.getElementById('req-message').placeholder = t.formPlaceholders.message;
-    document.getElementById('submit-text').textContent = t.formPlaceholders.submit;
-}
-
-// Функция для показа только одной секции
-function showSection(sectionId) {
-    const sections = ['home', 'about', 'prices', 'reviews', 'contact', 'files'];
-    sections.forEach(id => {
-        const el = document.getElementById(id);
-        if (el) {
-            el.style.display = (id === sectionId) ? 'block' : 'none';
-        }
-    });
-}
-
-// Инициализация при загрузке страницы
-document.addEventListener('DOMContentLoaded', function() {
-    // Навигация
-    ['nav-home', 'nav-about', 'nav-prices', 'nav-reviews', 'nav-contact'].forEach((navId, idx) => {
-        const navElement = document.getElementById(navId);
-        if (navElement) {
-            navElement.addEventListener('click', function(e) {
-                e.preventDefault();
-                showSection(['home', 'about', 'prices', 'reviews', 'contact'][idx]);
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-            });
-        }
-    });
-
-    // Переключение языка
-    document.getElementById('pl-btn').addEventListener('click', () => setLanguage('pl'));
-    document.getElementById('ru-btn').addEventListener('click', () => setLanguage('ru'));
-
-    // Показываем только главную при загрузке
-    showSection('home');
-
-    // Устанавливаем язык по умолчанию
-    setLanguage('pl');
-
-    // Переключение темы
-    const themeToggle = document.getElementById('theme-toggle');
-    const themeIcon = document.getElementById('theme-icon');
-
-    function setTheme(theme) {
-        document.documentElement.setAttribute('data-theme', theme);
-        themeIcon.textContent = theme === 'dark' ? '☀️' : '🌙';
-    }
-
-    function toggleTheme() {
-        const current = document.documentElement.getAttribute('data-theme') || 'light';
-        setTheme(current === 'light' ? 'dark' : 'light');
-    }
-
-    themeToggle.addEventListener('click', toggleTheme);
-
-    // Форма отзывов
-    const reviewForm = document.getElementById('review-form');
-    if (reviewForm) {
-        // Звёзды
-        const stars = document.querySelectorAll('#review-stars .star');
-        const ratingInput = document.getElementById('review-rating');
-        let currentRating = 5;
-        
-        function updateStars(rating) {
-            stars.forEach((star, idx) => {
-                star.style.color = (idx < rating) ? '#ffd700' : '#ccc';
-            });
-        }
-        
-        stars.forEach(star => {
-            star.addEventListener('mouseenter', function() {
-                updateStars(Number(star.dataset.value));
-            });
-            star.addEventListener('mouseleave', function() {
-                updateStars(currentRating);
-            });
-            star.addEventListener('click', function() {
-                currentRating = Number(star.dataset.value);
-                ratingInput.value = currentRating;
-                updateStars(currentRating);
-            });
-        });
-        
-        updateStars(currentRating);
-        
-        reviewForm.addEventListener('submit', function(e) {
-            e.preventDefault();
-            const name = document.getElementById('review-name').value.trim();
-            const text = document.getElementById('review-text').value.trim();
-            const rating = document.getElementById('review-rating').value;
-            
-            if (name && text) {
-                const li = document.createElement('li');
-                let starsHtml = '<span style="color:#ffd700; font-size:1.2em; margin-right:6px;">' + '★'.repeat(rating) + '<span style="color:#ccc;">' + '★'.repeat(5-rating) + '</span></span>';
-                li.innerHTML = starsHtml + '"' + text + '" – ' + name;
-                document.getElementById('reviews-list').appendChild(li);
-                reviewForm.reset();
-                currentRating = 5;
-                ratingInput.value = 5;
-                updateStars(currentRating);
+        // Переводы
+        const translations = {
+            pl: {
+                mainTitle: "KompSerwis24",
+                subtitle: "Szybka i skuteczna naprawa Twojego komputera",
+                pricesTitle: "Cennik",
+                pricesList: [
+                    "Diagnoza (wstępna): <span>0 zł</span>",
+                    "Instalacja Windows z formatowaniem: <span>70 zł</span>",
+                    "Instalacja Windows z zachowaniem danych: <span>100 zł</span>",
+                    "Wymiana dysku + instalacja systemu: <span>100 zł</span>",
+                    "Czyszczenie z kurzu + wymiana pasty: <span>85 zł</span>",
+                    "Wymiana/instalacja SSD/HDD/NVMe: <span>40 zł</span>",
+                    "Składanie PC z podzespołów: <span>od 120 zł do 200 zł</span>",
+                    "Wymiana/instalacja karty graficznej: <span>80 zł</span>",
+                    "Wymiana/instalacja RAM: <span>80 zł</span>",
+                    "Wymiana płyty głównej: <span>80 zł</span>",
+                    "Wymiana procesora + pasta: <span>80 zł</span>",
+                    "Wymiana zasilacza: <span>80 zł</span>",
+                    "Wymiana wentylatora: <span>60 zł</span>",
+                    "Aktualizacja BIOS: <span>50 zł</span>",
+                    "Instalacja sterowników: <span>50 zł</span>",
+                    "Inne usługi: <span>umowne</span>"
+                ],
+                reviewsTitle: "Opinie klientów",
+                reviewsList: [
+                    '"Szybko i profesjonalnie!" – Anna K.',
+                    '"Mój komputer działa jak nowy." – Piotr W.',
+                    '"Polecam każdemu!" – Marek Z.'
+                ],
+                nav: {
+                    home: "Główna",
+                    prices: "Cennik",
+                    reviews: "Opinie",
+                    comments: "Komentarze",
+                    contact: "Kontakt"
+                },
+                liveCommentsTitle: "Komentarze na żywo",
+                commentFormTitle: "Dodaj komentarz",
+                commentNamePlaceholder: "Twoje imię",
+                commentEmailPlaceholder: "Email (opcjonalnie)",
+                commentTextPlaceholder: "Twój komentarz...",
+                commentSubmitText: "Dodaj komentarz",
+                commentSubmitting: "Dodawanie...",
+                noCommentsText: "Bądź pierwszy, który skomentuje!",
+                contactTitle: "Kontakt",
+                contactDesc: "Zadzwoń lub napisz do nas, aby umówić się na wizytę!",
+                phone: "+48 790 259 392",
+                email: "kompserwis24poznan@gmail.com",
+                footerText: "© 2025 KompSerwis24. Wszystkie prawa zastrzeżone.",
+                formPlaceholders: {
+                    name: "Imię",
+                    email: "Email", 
+                    message: "Twoja wiadomość",
+                    submit: "Wyślij",
+                    sending: "Wysyłanie...",
+                    success: "Dziękujemy za wiadomość! Odpowiemy wkrótce."
+                }
+            },
+            ru: {
+                mainTitle: "KompSerwis24",
+                subtitle: "Быстрый и эффективный ремонт вашего ПК",
+                pricesTitle: "Цены",
+                pricesList: [
+                    "Диагностика (вступительная): <span>0 zł</span>",
+                    "Установка Windows с форматированием: <span>70 zł</span>",
+                    "Установка Windows с сохранением данных: <span>100 zł</span>",
+                    "Замена диска + скачивание системы: <span>100 zł</span>",
+                    "Чистка от пыли + замена термопасты: <span>85 zł</span>",
+                    "Замена/установка SSD/HDD/NVMe: <span>40 zł</span>",
+                    "Сборка ПК из комплектующих клиента: <span>od 120 zł do 200 zł</span>",
+                    "Замена/установка видеокарты в ПК: <span>80 zł</span>",
+                    "Замена/установка RAM: <span>80 zł</span>",
+                    "Замена материнской платы: <span>80 zł</span>",
+                    "Замена процессора + термопасты: <span>80 zł</span>",
+                    "Замена блока питания: <span>80 zł</span>",
+                    "Замена вентилятора в ПК: <span>60 zł</span>",
+                    "Обновление BIOS / прошивка: <span>50 zł</span>",
+                    "Установка и настройка драйверов: <span>50 zł</span>",
+                    "Прочие услуги: <span>договорные</span>"
+                ],
+                reviewsTitle: "Отзывы клиентов",
+                reviewsList: [
+                    '"Быстро и профессионально!" – Анна К."',
+                    '"Компьютер работает как новый." – Пётр В."',
+                    '"Рекомендую всем!" – Марек З.'
+                ],
+                nav: {
+                    home: "Главная",
+                    prices: "Услуги",
+                    reviews: "Отзывы",
+                    comments: "Комментарии",
+                    contact: "Контакты"
+                },
+                liveCommentsTitle: "Живые комментарии",
+                commentFormTitle: "Добавить комментарий",
+                commentNamePlaceholder: "Ваше имя",
+                commentEmailPlaceholder: "Email (необязательно)",
+                commentTextPlaceholder: "Ваш комментарий...",
+                commentSubmitText: "Добавить комментарий",
+                commentSubmitting: "Добавление...",
+                noCommentsText: "Будьте первым, кто оставит комментарий!",
+                contactTitle: "Контакты",
+                contactDesc: "Позвоните или напишите нам, чтобы записаться на визит!",
+                phone: "+48 790 259 392",
+                email: "kompserwis24poznan@gmail.com",
+                footerText: "© 2025 KompSerwis24. Все права защищены.",
+                formPlaceholders: {
+                    name: "Имя",
+                    email: "Email",
+                    message: "Ваше сообщение",
+                    submit: "Отправить",
+                    sending: "Отправка...",
+                    success: "Спасибо за сообщение! Мы ответим в ближайшее время."
+                }
             }
-        });
-    }
+        };
 
-    // Обработка формы заявки с Web3Forms
-    const requestForm = document.getElementById('request-form');
-    if (requestForm) {
-        requestForm.addEventListener('submit', async function(e) {
-            e.preventDefault();
+        // Функция установки языка
+        function setLanguage(lang) {
+            const t = translations[lang];
+            document.getElementById('main-title').textContent = t.mainTitle;
+            document.getElementById('subtitle').textContent = t.subtitle;
+            document.getElementById('prices-title').textContent = t.pricesTitle;
             
-            const submitBtn = document.getElementById('submit-btn');
-            const submitText = document.getElementById('submit-text');
-            const successMessage = document.getElementById('request-success');
-            const currentLang = document.documentElement.lang || 'pl';
-            const t = translations[currentLang];
+            const pricesList = document.getElementById('prices-list');
+            pricesList.innerHTML = '';
+            t.pricesList.forEach(item => {
+                const li = document.createElement('li');
+                li.innerHTML = item;
+                pricesList.appendChild(li);
+            });
             
-            // Показать состояние загрузки
-            submitText.textContent = t.formPlaceholders.sending;
-            submitBtn.disabled = true;
+            document.getElementById('reviews-title').textContent = t.reviewsTitle;
+            const reviewsList = document.getElementById('reviews-list');
+            reviewsList.innerHTML = '';
+            t.reviewsList.forEach(item => {
+                const li = document.createElement('li');
+                li.innerHTML = item;
+                reviewsList.appendChild(li);
+            });
             
-            try {
-                const formData = new FormData(requestForm);
-                const response = await fetch('https://api.web3forms.com/submit', {
-                    method: 'POST',
-                    body: formData
+            document.getElementById('contact-title').textContent = t.contactTitle;
+            document.getElementById('contact-desc').textContent = t.contactDesc;
+            document.getElementById('phone').textContent = t.phone;
+            document.getElementById('email').textContent = t.email;
+            document.getElementById('footer-text').textContent = t.footerText;
+            
+            // Навигация
+            document.getElementById('nav-home').textContent = t.nav.home;
+            document.getElementById('nav-prices').textContent = t.nav.prices;
+            document.getElementById('nav-reviews').textContent = t.nav.reviews;
+            document.getElementById('nav-comments').textContent = t.nav.comments;
+            document.getElementById('nav-contact').textContent = t.nav.contact;
+            
+            // Комментарии
+            document.getElementById('live-comments-title').textContent = t.liveCommentsTitle;
+            document.getElementById('comment-form-title').textContent = t.commentFormTitle;
+            document.getElementById('comment-name').placeholder = t.commentNamePlaceholder;
+            document.getElementById('comment-email').placeholder = t.commentEmailPlaceholder;
+            document.getElementById('comment-text').placeholder = t.commentTextPlaceholder;
+            document.getElementById('comment-submit-text').textContent = t.commentSubmitText;
+            document.getElementById('no-comments-text').textContent = t.noCommentsText;
+            
+            document.documentElement.lang = lang;
+
+            // Перевод формы отзывов
+            if (lang === 'pl') {
+                document.getElementById('review-name').placeholder = 'Imię';
+                document.getElementById('review-text').placeholder = 'Twój komentarz';
+                document.querySelector('#review-form button[type="submit"]').textContent = 'Dodaj';
+            } else if (lang === 'ru') {
+                document.getElementById('review-name').placeholder = 'Имя';
+                document.getElementById('review-text').placeholder = 'Ваш отзыв';
+                document.querySelector('#review-form button[type="submit"]').textContent = 'Добавить';
+            }
+
+            // Перевод формы контакта
+            document.getElementById('req-name').placeholder = t.formPlaceholders.name;
+            document.getElementById('req-email').placeholder = t.formPlaceholders.email;
+            document.getElementById('req-message').placeholder = t.formPlaceholders.message;
+            document.getElementById('submit-text').textContent = t.formPlaceholders.submit;
+        }
+
+        // Функция для показа только одной секции
+        function showSection(sectionId) {
+            const sections = ['home', 'prices', 'reviews', 'live-comments', 'contact'];
+            sections.forEach(id => {
+                const el = document.getElementById(id);
+                if (el) {
+                    el.style.display = (id === sectionId) ? 'block' : 'none';
+                }
+            });
+        }
+
+        // Функции для работы с комментариями
+        function addComment(name, email, content) {
+            const commentsRef = ref(database, 'comments');
+            return push(commentsRef, {
+                name: name,
+                email: email || '',
+                content: content,
+                timestamp: serverTimestamp(),
+                page: 'main'
+            });
+        }
+
+        function loadComments() {
+            const commentsRef = ref(database, 'comments');
+            const commentsQuery = query(commentsRef, orderByChild('timestamp'), limitToLast(50));
+            
+            onValue(commentsQuery, (snapshot) => {
+                const comments = snapshot.val();
+                displayComments(comments);
+            });
+        }
+
+        function displayComments(comments) {
+            const container = document.getElementById('comments-container');
+            const loading = document.getElementById('comments-loading');
+            const noComments = document.getElementById('no-comments');
+            
+            // Скрываем индикатор загрузки
+            loading.style.display = 'none';
+            
+            // Очищаем контейнер от старых комментариев
+            const existingComments = container.querySelectorAll('.comment-item');
+            existingComments.forEach(comment => comment.remove());
+            
+            if (comments) {
+                const commentsArray = Object.entries(comments)
+                    .filter(([_, comment]) => comment.page === 'main')
+                    .sort(([_, a], [__, b]) => (b.timestamp || 0) - (a.timestamp || 0));
+                
+                if (commentsArray.length > 0) {
+                    noComments.style.display = 'none';
+                    
+                    commentsArray.forEach(([id, comment]) => {
+                        const commentElement = document.createElement('div');
+                        commentElement.className = 'comment-item';
+                        
+                        const timeString = comment.timestamp ? 
+                            new Date(comment.timestamp).toLocaleString() : 
+                            'Только что';
+                        
+                        commentElement.innerHTML = `
+                            <div class="comment-header">
+                                <div class="comment-author">${escapeHtml(comment.name)}</div>
+                                <div class="comment-time">${timeString}</div>
+                            </div>
+                            <div class="comment-content">${escapeHtml(comment.content)}</div>
+                        `;
+                        
+                        container.appendChild(commentElement);
+                    });
+                } else {
+                    noComments.style.display = 'block';
+                }
+            } else {
+                noComments.style.display = 'block';
+            }
+        }
+
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        // Инициализация при загрузке страницы
+        document.addEventListener('DOMContentLoaded', function() {
+            // Навигация
+            ['nav-home', 'nav-prices', 'nav-reviews', 'nav-comments', 'nav-contact'].forEach((navId, idx) => {
+                const navElement = document.getElementById(navId);
+                if (navElement) {
+                    navElement.addEventListener('click', function(e) {
+                        e.preventDefault();
+                        showSection(['home', 'prices', 'reviews', 'live-comments', 'contact'][idx]);
+                        window.scrollTo({ top: 0, behavior: 'smooth' });
+                    });
+                }
+            });
+
+            // Переключение языка
+            document.getElementById('pl-btn').addEventListener('click', () => setLanguage('pl'));
+            document.getElementById('ru-btn').addEventListener('click', () => setLanguage('ru'));
+
+            // Показываем только главную при загрузке
+            showSection('home');
+
+            // Устанавливаем язык по умолчанию
+            setLanguage('pl');
+
+            // Переключение темы
+            const themeToggle = document.getElementById('theme-toggle');
+            const themeIcon = document.getElementById('theme-icon');
+
+            function setTheme(theme) {
+                document.documentElement.setAttribute('data-theme', theme);
+                themeIcon.textContent = theme === 'dark' ? '☀️' : '🌙';
+            }
+
+            function toggleTheme() {
+                const current = document.documentElement.getAttribute('data-theme') || 'light';
+                setTheme(current === 'light' ? 'dark' : 'light');
+            }
+
+            themeToggle.addEventListener('click', toggleTheme);
+
+            // Форма комментариев
+            const commentForm = document.getElementById('comment-form');
+            if (commentForm) {
+                commentForm.addEventListener('submit', async function(e) {
+                    e.preventDefault();
+                    
+                    const name = document.getElementById('comment-name').value.trim();
+                    const email = document.getElementById('comment-email').value.trim();
+                    const content = document.getElementById('comment-text').value.trim();
+                    const submitBtn = document.getElementById('comment-submit');
+                    const submitText = document.getElementById('comment-submit-text');
+                    const currentLang = document.documentElement.lang || 'pl';
+                    const t = translations[currentLang];
+                    
+                    if (name && content) {
+                        // Показать состояние загрузки
+                        submitText.textContent = t.commentSubmitting;
+                        submitBtn.disabled = true;
+                        
+                        try {
+                            await addComment(name, email, content);
+                            commentForm.reset();
+                        } catch (error) {
+                            console.error('Ошибка при добавлении комментария:', error);
+                            alert('Произошла ошибка при добавлении комментария. Попробуйте снова.');
+                        } finally {
+                            // Восстановить кнопку
+                            submitText.textContent = t.commentSubmitText;
+                            submitBtn.disabled = false;
+                        }
+                    }
+                });
+            }
+
+            // Загружаем комментарии
+            loadComments();
+
+            // Форма отзывов (существующая)
+            const reviewForm = document.getElementById('review-form');
+            if (reviewForm) {
+                const stars = document.querySelectorAll('#review-stars .star');
+                const ratingInput = document.getElementById('review-rating');
+                let currentRating = 5;
+                
+                function updateStars(rating) {
+                    stars.forEach((star, idx) => {
+                        star.style.color = (idx < rating) ? '#ffd700' : '#ccc';
+                    });
+                }
+                
+                stars.forEach(star => {
+                    star.addEventListener('mouseenter', function() {
+                        updateStars(Number(star.dataset.value));
+                    });
+                    star.addEventListener('mouseleave', function() {
+                        updateStars(currentRating);
+                    });
+                    star.addEventListener('click', function() {
+                        currentRating = Number(star.dataset.value);
+                        ratingInput.value = currentRating;
+                        updateStars(currentRating);
+                    });
                 });
                 
-                if (response.ok) {
-                    // Успешная отправка
-                    successMessage.textContent = t.formPlaceholders.success;
-                    successMessage.style.display = 'block';
-                    requestForm.reset();
-                    
-                    // Скрыть сообщение через 5 секунд
-                    setTimeout(() => {
-                        successMessage.style.display = 'none';
-                    }, 5000);
-                } else {
-                    throw new Error('Network response was not ok');
-                }
-            } catch (error) {
-                // Ошибка отправки
-                successMessage.textContent = currentLang === 'pl' 
-                    ? 'Wystąpił błąd. Spróbuj ponownie lub zadzwoń.'
-                    : 'Произошла ошибка. Попробуйте снова или позвоните.';
-                successMessage.style.display = 'block';
-                successMessage.style.background = 'rgba(244, 67, 54, 0.3)';
-                successMessage.style.borderColor = 'rgba(244, 67, 54, 0.5)';
+                updateStars(currentRating);
                 
-                setTimeout(() => {
-                    successMessage.style.display = 'none';
-                    successMessage.style.background = 'rgba(76, 175, 80, 0.3)';
-                    successMessage.style.borderColor = 'rgba(76, 175, 80, 0.5)';
-                }, 5000);
-            } finally {
-                // Восстановить кнопку
-                submitText.textContent = t.formPlaceholders.submit;
-                submitBtn.disabled = false;
+                reviewForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    const name = document.getElementById('review-name').value.trim();
+                    const text = document.getElementById('review-text').value.trim();
+                    const rating = document.getElementById('review-rating').value;
+                    
+                    if (name && text) {
+                        const li = document.createElement('li');
+                        let starsHtml = '<span style="color:#ffd700; font-size:1.2em; margin-right:6px;">' + '★'.repeat(rating) + '<span style="color:#ccc;">' + '★'.repeat(5-rating) + '</span></span>';
+                        li.innerHTML = starsHtml + '"' + text + '" – ' + name;
+                        document.getElementById('reviews-list').appendChild(li);
+                        reviewForm.reset();
+                        currentRating = 5;
+                        ratingInput.value = 5;
+                        updateStars(currentRating);
+                    }
+                });
+            }
+
+            // Обработка формы заявки с Web3Forms
+            const requestForm = document.getElementById('request-form');
+            if (requestForm) {
+                requestForm.addEventListener('submit', async function(e) {
+                    e.preventDefault();
+                    
+                    const submitBtn = document.getElementById('submit-btn');
+                    const submitText = document.getElementById('submit-text');
+                    const successMessage = document.getElementById('request-success');
+                    const currentLang = document.documentElement.lang || 'pl';
+                    const t = translations[currentLang];
+                    
+                    // Показать состояние загрузки
+                    submitText.textContent = t.formPlaceholders.sending;
+                    submitBtn.disabled = true;
+                    
+                    try {
+                        const formData = new FormData(requestForm);
+                        const response = await fetch('https://api.web3forms.com/submit', {
+                            method: 'POST',
+                            body: formData
+                        });
+                        
+                        if (response.ok) {
+                            // Успешная отправка
+                            successMessage.textContent = t.formPlaceholders.success;
+                            successMessage.style.display = 'block';
+                            requestForm.reset();
+                            
+                            // Скрыть сообщение через 5 секунд
+                            setTimeout(() => {
+                                successMessage.style.display = 'none';
+                            }, 5000);
+                        } else {
+                            throw new Error('Network response was not ok');
+                        }
+                    } catch (error) {
+                        // Ошибка отправки
+                        successMessage.textContent = currentLang === 'pl' 
+                            ? 'Wystąpił błąd. Spróbuj ponownie lub zadzwoń.'
+                            : 'Произошла ошибка. Попробуйте снова или позвоните.';
+                        successMessage.style.display = 'block';
+                        successMessage.style.background = 'rgba(244, 67, 54, 0.3)';
+                        successMessage.style.borderColor = 'rgba(244, 67, 54, 0.5)';
+                        
+                        setTimeout(() => {
+                            successMessage.style.display = 'none';
+                            successMessage.style.background = 'rgba(76, 175, 80, 0.3)';
+                            successMessage.style.borderColor = 'rgba(76, 175, 80, 0.5)';
+                        }, 5000);
+                    } finally {
+                        // Восстановить кнопку
+                        submitText.textContent = t.formPlaceholders.submit;
+                        submitBtn.disabled = false;
+                    }
+                });
             }
         });
-    }
-});
     </script>
 </body>
 </html>
